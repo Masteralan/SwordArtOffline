@@ -1,2 +1,3 @@
 # Ignore compiled files so they do not upload to git
-.class
+/.vscode
+*.class
