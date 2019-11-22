@@ -12,7 +12,8 @@ class Main {
         //frame.setTitle("Sword Art Offline");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        frame.setLocationRelativeTo(null);
+        frame.setLocation(100, 100);
+        frame.setSize(800, 600);
         frame.pack();
         frame.setVisible(true);
 
