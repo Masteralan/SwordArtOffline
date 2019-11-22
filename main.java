@@ -9,15 +9,14 @@ class Main {
         System.out.println("Hello world!");
 
         JFrame frame = new JFrame("Sword Art Offline");
-        //frame.setTitle("Sword Art Offline");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        frame.setLocation(100, 100);
-        frame.setSize(800, 600);
-        frame.pack();
-        frame.setVisible(true);
+        frame.setLocation(100, 100);    //Set top left corner location on screen to 100, 100
+        frame.setSize(800, 600);        //Set window size to 800x600
+        //frame.pack();                 //Automatically scales window to fit content
+        frame.setVisible(true);         //Makes the window visible
 
-        while (frame.isActive()) {
+        while (frame.isActive()) {  //While the frame is open (window has not been closed)
             
         }
     }
