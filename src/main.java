@@ -1,11 +1,16 @@
-// To compile: javac main.java
-// To run: java main
+/* 2D Java Game AKA Sword Art Offline
+by Will V, Clayton S, and Alan O
 
-//import java.awt.key;
-import javax.swing.JFrame;
+Runs in Java 11 SDK
+
+How to configure project when using IntelliJ IDEA (scroll to bottom)
+https://intellij-support.jetbrains.com/hc/en-us/community/posts/115000156824-How-to-choose-main-class
+
+*/
+
 import Rendering.RenderWindow;
 
-class Main {
+public class main {
     public static void main(String args[]) {
         System.out.println("Hello world!");
 
@@ -14,11 +19,11 @@ class Main {
         long lastTick = System.currentTimeMillis();
         while (window.isActive()) {  //While the frame is open (window has not been closed)
             long tick = System.currentTimeMillis();
-            float deltaTime = (tick - lastTick) / 1000;
+            float deltaTime = (tick - lastTick) / (float) 1000;
             lastTick = tick;
 
             window.tick(deltaTime);
-            window.repaint();
+            window.repaint(tick);
         }
     }
 }

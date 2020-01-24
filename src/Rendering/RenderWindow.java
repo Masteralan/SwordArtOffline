@@ -1,10 +1,12 @@
+package Rendering;
+
 import javax.swing.*;
 import java.awt.*;
 
 // https://stackoverflow.com/questions/22402131/draw-rectangle-in-jframe-not-working
 
 public class RenderWindow extends JFrame {
-    RenderWindow(String title) {
+    public RenderWindow(String title) {
         setTitle(title);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
@@ -17,12 +19,15 @@ public class RenderWindow extends JFrame {
     private float time = 0;
     private float deltaTime = 0;
     public void tick(float DeltaTime) {
-        time+=DeltaTime;
+        time += DeltaTime;
         deltaTime = DeltaTime;
     }
 
     @Override
-    public void paint(Grahpics g) {
-        g.drawRect(200, 300);
+    public void paint(Graphics g) {
+        super.paint(g);
+
+        g.setColor(new Color(200,50,50));
+        g.fillRect(100,100,200,100);
     }
 }
