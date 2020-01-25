@@ -1,14 +1,19 @@
 package Rendering;
 
+import Objects.Prop;
+
 import javax.swing.*;
 import java.awt.*;
-
-// https://stackoverflow.com/questions/22402131/draw-rectangle-in-jframe-not-working
+import java.awt.image.ImageObserver;
+import java.util.ArrayList;
 
 public class RenderWindow extends JFrame {
+    private ImageObserver imageObserver;
+
     public RenderWindow(String title) {
         setTitle(title);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIgnoreRepaint(false);
         
         setLocation(100, 100);    //Set top left corner location on screen to 100, 100
         setSize(800, 600);        //Set window size to 800x600
@@ -23,11 +28,29 @@ public class RenderWindow extends JFrame {
         deltaTime = DeltaTime;
     }
 
+
+    public ArrayList<Prop> props = new ArrayList<Prop>();
+    public void AddProp(Prop newProp) {
+        if (newProp != null)
+            props.add(newProp);
+    }
+    public void RemoveProp(Prop propToRemove) {
+        props.remove(propToRemove);
+    }
+
+
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
 
-        g.setColor(new Color(200,50,50));
-        g.fillRect(100,100,200,100);
+        // Draw each individual object
+        if (props.size() > 0) {
+            for (Prop prop : props) {
+                prop.draw(g, imageObserver);
+
+                System.out.println("Drawing Prop at " + prop.x + ", " + prop.y);
+            }
+        }
     }
 }
