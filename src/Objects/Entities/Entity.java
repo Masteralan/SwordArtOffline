@@ -30,10 +30,10 @@ public class Entity extends PhysicsProp  {
 
         float applyX = 0;
         float applyY = 0;
-        if (vx < Movement_MaxSpeed*Movement_XThrottle) {
+        if (Math.abs(vx) < Math.abs(Movement_MaxSpeed*Movement_XThrottle)) {
             applyX = 1;
         }
-        if (vx < Movement_YThrottle*Movement_YThrottle) {
+        if (Math.abs(vy) < Math.abs(Movement_MaxSpeed*Movement_YThrottle)) {
             applyY = 1;
         }
 
