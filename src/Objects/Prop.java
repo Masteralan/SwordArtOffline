@@ -23,7 +23,7 @@ public class Prop {
         color = new Color(200,200,200);
     }
 
-
+    //Draws image
     public void draw(Graphics g, ImageObserver observer) {
         g.setColor(color);
 
