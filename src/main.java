@@ -67,7 +67,7 @@ public class main {
             System.out.println("Player has position " + player.x + ", " + player.y + " and velocity " + player.vx + ", " + player.vy);
 
             window.tick(deltaTime);
-            window.repaint(tick);
+            //window.repaint(tick);
 
             if (input.IsKeyDown('x'))
                 window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
