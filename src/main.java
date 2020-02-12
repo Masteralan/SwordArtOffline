@@ -42,7 +42,7 @@ public class main {
             long tick = System.currentTimeMillis();
             float deltaTime = (tick - lastTick) / (float) 1000;
             lastTick = tick;
-            //System.out.println("New frame with DT " + deltaTime);
+            System.out.println("New frame with DT " + deltaTime);
 
             int playerDirX = 0;
             int playerDirY = 0;
@@ -60,7 +60,7 @@ public class main {
             player.x += player.vx*deltaTime;
             player.y += player.vy*deltaTime;
 
-            //System.out.println("Player has position " + player.x + ", " + player.y + " and velocity " + player.vx + ", " + player.vy);
+            System.out.println("Player has position " + player.x + ", " + player.y + " and velocity " + player.vx + ", " + player.vy);
 
             window.tick(deltaTime);
             window.repaint(tick);
