@@ -49,7 +49,7 @@ public class RenderWindow extends JFrame {
             for (Prop prop : props) {
                 prop.draw(g, imageObserver);
 
-                System.out.println("Drawing Prop at " + prop.x + ", " + prop.y);
+                //System.out.println("Drawing Prop at " + prop.x + ", " + prop.y);
             }
         }
     }

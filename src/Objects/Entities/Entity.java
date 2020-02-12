@@ -37,6 +37,6 @@ public class Entity extends PhysicsProp  {
             applyY = 1;
         }
 
-        ApplyForce(applyX, applyY, DeltaTime);
+        ApplyForce(applyX*Movement_Force, applyY*Movement_Force, DeltaTime);
     }
 }
