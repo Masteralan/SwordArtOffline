@@ -1,6 +1,7 @@
 # Ignore compiled files so they do not upload to git
 /.vscode
 /.idea
-
-#/out
-#*.class
+/out
+*.class
+*.ctxt
+*.bluejay
