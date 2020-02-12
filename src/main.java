@@ -43,16 +43,20 @@ public class main {
             float deltaTime = (tick - lastTick) / (float) 1000;
             lastTick = tick;
             System.out.println("New frame with DT " + deltaTime);
-
+            boolean up, down, left, right;
+            up = input.IsKeyDown('w');
+            right = input.IsKeyDown('d');
+            left = input.IsKeyDown('a');
+            down = input.IsKeyDown('s');
             int playerDirX = 0;
             int playerDirY = 0;
-            if (input.IsKeyDown('d'))
+            if (right)
                 playerDirX++;
-            if (input.IsKeyDown('a'))
+            if (left)
                 playerDirX--;
-            if (input.IsKeyDown('w'))
+            if (up)
                 playerDirY++;
-            if (input.IsKeyDown('s'))
+            if (down)
                 playerDirY--;
             player.Move((float) playerDirX, (float) playerDirY);
             player.Tick(deltaTime);
