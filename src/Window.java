@@ -10,14 +10,14 @@ import java.awt.*;
 import java.io.File;
 
 public class Window implements Runnable {
-
     JFrame frame;
     int positionX = 400;
-    int positionY = 400;
+    int positionY = 0;
+    int floor = 500;
     double velocityY = 0;
     double velocityX = 0;
     double accelerationX = 0;
-    double accelerationY = 0;
+    double accelerationY = 10;
     double friction = 0.6;
     Canvas canvas;
     BufferStrategy bufferStrategy;
@@ -86,23 +86,20 @@ public class Window implements Runnable {
   public static void main(String[] args) {
       Thread.currentThread().setPriority((int)(Thread.MAX_PRIORITY));
       Window game = new Window();
-
-
       new Thread(game).start();
   }
   public void Paint() {
       Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
       g.clearRect(0, 0, 1400, 800);
-
-
       Paint(g);
       bufferStrategy.show();
-
   }
   protected void Paint(Graphics2D g) {
+
     if(up) {
       //positionY-=8;
-      accelerationY--;
+      if(positionY>=floor)
+        accelerationY-=20;
     }
     if(down) {
       //positionY+=8;
@@ -116,14 +113,23 @@ public class Window implements Runnable {
       //positionX+=8;
       accelerationX++;
     }
-    accelerationX/=1.1;
-    accelerationY/=1.1;
+    accelerationY/=1.1;//subject to change
+    accelerationX/=1.1;//subject to change
     velocityX+=accelerationX - friction*velocityX;
     velocityY+=accelerationY - friction*velocityY;
     positionX = (int)velocityX+positionX;
-    positionY = (int)velocityY+positionY;
-    Image img = Toolkit.getDefaultToolkit().getImage("person.png");
-    g.drawImage(img, positionX,positionY,null);
+    if((int)velocityY+positionY>=floor)
+      positionY = floor;
+    else {
+      positionY = (int)velocityY+positionY;
+      accelerationY+=1;
+
+    }
+    //Image img = Toolkit.getDefaultToolkit().getImage("person.png");
+    //g.drawImage(img, positionX,positionY,null);
+    g.setColor(Color.BLACK);
+    g.fillRect(positionX,positionY,50,50);
+
   }
   public void moveIt(KeyEvent evt) {
     int key =evt.getKeyCode();
