@@ -64,7 +64,7 @@ public class Window implements Runnable {
               up = false;
             if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A)
               left = false;
-             if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D)
+            if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D)
               right = false;
           }
       });
@@ -114,7 +114,11 @@ public class Window implements Runnable {
         velocityY+=accelerationY - friction*velocityY;
         positionX = (int)velocityX+positionX;
         if((int)velocityY+positionY>=floor)
+        {
             positionY = floor;
+            accelerationY = 0;
+            velocityY = 0;
+        }
         else {
             positionY = (int)velocityY+positionY;
             accelerationY+=1;
