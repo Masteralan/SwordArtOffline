@@ -1,3 +1,4 @@
+import Props.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -6,25 +7,14 @@ import java.awt.image.BufferStrategy;
 
 public class Window implements Runnable {
     JFrame frame;
-
-    int positionX = 400;
-    int positionY = 0;
-    int floor = 500;
-
-    double velocityY = 0;
-    double velocityX = 0;
-    double accelerationX = 0;
-    double accelerationY = 10;
-    double friction = 0.6;
-
     Canvas canvas;
     BufferStrategy bufferStrategy;
 
     boolean running = true;
     boolean up, down, left, right, attack;
 
-    Object player;
-
+    Player plr; // The player object of the player playing the game
+    int floor = 500;
 
     public Window() {
         frame = new JFrame("Sword Art Offline");
@@ -81,7 +71,7 @@ public class Window implements Runnable {
     }
 
     public void run() {
-        player = new Object(0,0,50,50,.7);
+        plr = new Player(0,0,50,50);
 
         while (running = true) {
             Paint();
@@ -108,12 +98,12 @@ public class Window implements Runnable {
     }
 
     protected void Paint(Graphics2D g) {
-        player.move(up, down, left, right, floor);
+        plr.move(up, down, left, right, floor);
 
         //Image img = Toolkit.getDefaultToolkit().getImage("person.png");
         //g.drawImage(img, positionX,positionY,null);
         g.setColor(Color.BLACK);
-        g.fillRect(player.GetPositionX(),player.GetPositionY(), player.GetSizeX(),player.GetSizeY());
+        g.fillRect(plr.GetPositionX(),plr.GetPositionY(), plr.GetSizeX(),plr.GetSizeY());
 
     }
 }
