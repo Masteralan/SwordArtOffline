@@ -6,20 +6,17 @@ import java.awt.image.BufferStrategy;
 
 public class Window implements Runnable {
     JFrame frame;
-   /**
+
     int positionX = 400;
     int positionY = 0;
-    
+    int floor = 500;
+
     double velocityY = 0;
     double velocityX = 0;
     double accelerationX = 0;
     double accelerationY = 10;
-    double friction = 0.6; 
-    */
+    double friction = 0.6;
 
-    int floor = 500;
-    
-    Object player = new Object();
     Canvas canvas;
     BufferStrategy bufferStrategy;
 
@@ -42,13 +39,13 @@ public class Window implements Runnable {
           public void keyPressed(KeyEvent evt) {
             int key =evt.getKeyCode();
             if(key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S)
-              down = true;
+                down = true;
             if(key == KeyEvent.VK_UP || key == KeyEvent.VK_W)
-              up = true;
+                up = true;
             if(key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A)
-              left = true;
+                left = true;
             if(key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D)
-              right = true;
+                right = true;
             if (key == KeyEvent.VK_SPACE)
                 attack = true;
 
@@ -62,13 +59,13 @@ public class Window implements Runnable {
           public void keyReleased(KeyEvent evt) {
             int key = evt.getKeyCode();
             if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S)
-              down = false;
+                down = false;
             if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W)
-              up = false;
+                up = false;
             if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_A)
-              left = false;
+                left = false;
             if (key == KeyEvent.VK_RIGHT || key == KeyEvent.VK_D)
-              right = false;
+                right = false;
           }
       });
 
@@ -98,14 +95,39 @@ public class Window implements Runnable {
     public void Paint() {
         Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
         g.clearRect(0, 0, 1400, 800);
+
         Paint(g);
         bufferStrategy.show();
     }
     protected void Paint(Graphics2D g) {
+        if(up && positionY>=floor)
+            accelerationY-=20;
+        if(down)
+          accelerationY++;
+        if(left)
+          accelerationX--;
+        if(right)
+          accelerationX++;
+
+        accelerationY/=1.1;//subject to change
+        accelerationX/=1.1;//subject to change
+        velocityX+=accelerationX - friction*velocityX;
+        velocityY+=accelerationY - friction*velocityY;
+        positionX = (int)velocityX+positionX;
+        if((int)velocityY+positionY>=floor) {
+            positionY = floor;
+            accelerationY = 0;
+            velocityY = 0;
+        }
+        else {
+            positionY = (int)velocityY+positionY;
+            accelerationY+=1;
+        }
+
         //Image img = Toolkit.getDefaultToolkit().getImage("person.png");
         //g.drawImage(img, positionX,positionY,null);
-        player.move(up, down, left, right, floor);
         g.setColor(Color.BLACK);
-        g.fillRect(player.positionX, player.positionY,50,50);
+        g.fillRect(positionX,positionY,50,50);
+
     }
 }

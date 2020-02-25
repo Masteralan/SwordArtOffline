@@ -1,12 +1,5 @@
 
-/**
- * The player
- *
- * @author Will V
- * @version (a version number or a date)
- */
-public class Object
-{
+public class Object {
     // instance variables - replace the example below with your own
     private double velocityY;
     private double velocityX;
@@ -17,8 +10,7 @@ public class Object
     protected int positionX;
 
     //Constructs for player
-    public Object()
-    {
+    public Object() {
         velocityY = 0;
         velocityX = 0;
         accelerationX = 0;
@@ -28,8 +20,7 @@ public class Object
         positionY = 0;
     }
     //Custom object
-    public Object(double aX, double aY, double friction, int posY, int posX)
-    {
+    public Object(double aX, double aY, double friction, int posY, int posX) {
         velocityY = 0;
         velocityX = 0;
         accelerationX = aX;
@@ -40,9 +31,8 @@ public class Object
     }
 
     //Moves the player
-    public void move(boolean up, boolean down, boolean left, boolean right, int floor)
-    {
-        // put your code here
+    public void move(boolean up, boolean down, boolean left, boolean right, int floor) {
+
         if(up && positionY>=floor)
             accelerationY-=20;
         if(down)
@@ -57,8 +47,8 @@ public class Object
         velocityX+=accelerationX - friction*velocityX;
         velocityY+=accelerationY - friction*velocityY;
         positionX = (int)velocityX+positionX;
-        if((int)velocityY+positionY>=floor)
-        {
+
+        if((int)velocityY+positionY>=floor) {
             positionY = floor;
             accelerationY = 0;
             velocityY = 0;
