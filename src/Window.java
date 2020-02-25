@@ -6,17 +6,20 @@ import java.awt.image.BufferStrategy;
 
 public class Window implements Runnable {
     JFrame frame;
-
+   /**
     int positionX = 400;
     int positionY = 0;
-    int floor = 500;
-
+    
     double velocityY = 0;
     double velocityX = 0;
     double accelerationX = 0;
     double accelerationY = 10;
-    double friction = 0.6;
+    double friction = 0.6; 
+    */
 
+    int floor = 500;
+    
+    Object player = new Object();
     Canvas canvas;
     BufferStrategy bufferStrategy;
 
@@ -99,35 +102,10 @@ public class Window implements Runnable {
         bufferStrategy.show();
     }
     protected void Paint(Graphics2D g) {
-        if(up && positionY>=floor)
-            accelerationY-=20;
-        if(down)
-          accelerationY++;
-        if(left)
-          accelerationX--;
-        if(right)
-          accelerationX++;
-
-        accelerationY/=1.1;//subject to change
-        accelerationX/=1.1;//subject to change
-        velocityX+=accelerationX - friction*velocityX;
-        velocityY+=accelerationY - friction*velocityY;
-        positionX = (int)velocityX+positionX;
-        if((int)velocityY+positionY>=floor)
-        {
-            positionY = floor;
-            accelerationY = 0;
-            velocityY = 0;
-        }
-        else {
-            positionY = (int)velocityY+positionY;
-            accelerationY+=1;
-        }
-
         //Image img = Toolkit.getDefaultToolkit().getImage("person.png");
         //g.drawImage(img, positionX,positionY,null);
+        player.move(up, down, left, right, floor);
         g.setColor(Color.BLACK);
-        g.fillRect(positionX,positionY,50,50);
-
-  }
+        g.fillRect(player.positionX, player.positionY,50,50);
+    }
 }
