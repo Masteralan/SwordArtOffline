@@ -1,4 +1,4 @@
-
+//
 public class Object {
     // instance variables - replace the example below with your own
     private double velocityY;
@@ -6,8 +6,11 @@ public class Object {
     private double accelerationX;
     private double accelerationY;
     private double friction;
+
     protected int positionY;
     protected int positionX;
+    protected int sizeY;
+    protected int sizeX;
 
     //Constructs for player
     public Object() {
@@ -16,21 +19,40 @@ public class Object {
         accelerationX = 0;
         accelerationY = 10;
         friction = 0.6;
+
         positionX = 400;
         positionY = 0;
+
+        sizeX = 50;
+        sizeY = 50;
     }
-    //Custom object
-    public Object(double aX, double aY, double friction, int posY, int posX) {
+    // Create an object with parameters position, size, and friction
+    public Object(int posY, int posX, int sX, int sY, double fric) {
         velocityY = 0;
         velocityX = 0;
-        accelerationX = aX;
-        accelerationY = aY;
-        this.friction = friction;
+        accelerationX = 0;
+        accelerationY = 0;
+        friction = fric;
         positionX = posX;
         positionY = posY;
+        sizeX = sX;
+        sizeY = sY;
     }
 
-    //Moves the player
+    public int GetPositionX() {
+        return positionX;
+    }
+    public int GetPositionY() {
+        return positionY;
+    }
+    public int GetSizeX() {
+        return sizeX;
+    }
+    public int GetSizeY() {
+        return sizeY;
+    }
+
+    // Moves the object ith given inputs
     public void move(boolean up, boolean down, boolean left, boolean right, int floor) {
 
         if(up && positionY>=floor)

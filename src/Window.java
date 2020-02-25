@@ -23,6 +23,8 @@ public class Window implements Runnable {
     boolean running = true;
     boolean up, down, left, right, attack;
 
+    Object player;
+
 
     public Window() {
         frame = new JFrame("Sword Art Offline");
@@ -33,8 +35,8 @@ public class Window implements Runnable {
         canvas.setBounds(0, 0, 1400, 800);
         canvas.setIgnoreRepaint(true);
         panel.add(canvas);
-        canvas.addKeyListener(new KeyAdapter() {
 
+        canvas.addKeyListener(new KeyAdapter() {
           @Override
           public void keyPressed(KeyEvent evt) {
             int key =evt.getKeyCode();
@@ -77,7 +79,10 @@ public class Window implements Runnable {
       bufferStrategy = canvas.getBufferStrategy();
       canvas.requestFocus();
     }
+
     public void run() {
+        player = new Object(0,0,50,50,.7);
+
         while (running = true) {
             Paint();
             try {
@@ -87,11 +92,13 @@ public class Window implements Runnable {
             }
         }
     }
+
     public static void main(String[] args) {
         Thread.currentThread().setPriority((int)(Thread.MAX_PRIORITY));
         Window game = new Window();
         new Thread(game).start();
     }
+
     public void Paint() {
         Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
         g.clearRect(0, 0, 1400, 800);
@@ -99,35 +106,14 @@ public class Window implements Runnable {
         Paint(g);
         bufferStrategy.show();
     }
-    protected void Paint(Graphics2D g) {
-        if(up && positionY>=floor)
-            accelerationY-=20;
-        if(down)
-          accelerationY++;
-        if(left)
-          accelerationX--;
-        if(right)
-          accelerationX++;
 
-        accelerationY/=1.1;//subject to change
-        accelerationX/=1.1;//subject to change
-        velocityX+=accelerationX - friction*velocityX;
-        velocityY+=accelerationY - friction*velocityY;
-        positionX = (int)velocityX+positionX;
-        if((int)velocityY+positionY>=floor) {
-            positionY = floor;
-            accelerationY = 0;
-            velocityY = 0;
-        }
-        else {
-            positionY = (int)velocityY+positionY;
-            accelerationY+=1;
-        }
+    protected void Paint(Graphics2D g) {
+        player.move(up, down, left, right, floor);
 
         //Image img = Toolkit.getDefaultToolkit().getImage("person.png");
         //g.drawImage(img, positionX,positionY,null);
         g.setColor(Color.BLACK);
-        g.fillRect(positionX,positionY,50,50);
+        g.fillRect(player.GetPositionX(),player.GetPositionY(), player.GetSizeX(),player.GetSizeY());
 
     }
 }
