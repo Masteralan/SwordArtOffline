@@ -14,6 +14,7 @@ public class Window implements Runnable {
     boolean up, down, left, right, attack;
 
     Player plr; // The player object of the player playing the game
+    Prop[] objects;
     int floor = 500;
 
     public Window() {
@@ -72,9 +73,22 @@ public class Window implements Runnable {
 
     public void run() {
         plr = new Player(0,0,50,50);
+        objects = new Prop[5];
+        for (int i = 0; i < objects.length; i++) {
+            objects[i] = null;
+        }
+        objects[0] = plr;
 
         while (running = true) {
+            plr.move(up, down, left, right);
+
+            for (int i = 0; i < objects.length; i++) {
+                if (objects[i] != null)
+                    objects[i].Tick(floor);
+            }
+
             Paint();
+
             try {
                 Thread.sleep(25);
             } catch (InterruptedException e) {
@@ -98,12 +112,15 @@ public class Window implements Runnable {
     }
 
     protected void Paint(Graphics2D g) {
-        plr.move(up, down, left, right, floor);
+
 
         //Image img = Toolkit.getDefaultToolkit().getImage("person.png");
         //g.drawImage(img, positionX,positionY,null);
-        g.setColor(Color.BLACK);
-        g.fillRect(plr.GetPositionX(),plr.GetPositionY(), plr.GetSizeX(),plr.GetSizeY());
-
+        for (int i = 0; i < objects.length; i++) {
+            if (objects[i] != null) {
+                g.setColor(objects[i].GetDrawColor());
+                g.fillRect(objects[i].GetPositionX(), objects[i].GetPositionY(), objects[i].GetSizeX(), objects[i].GetSizeY());
+            }
+        }
     }
 }
